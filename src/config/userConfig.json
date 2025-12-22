@@ -1,0 +1,14 @@
+{
+    "niche": "Motivation",
+    "language": "Hinglish",
+    "audience": "Indian youth",
+    "posting": {
+        "postsPerDay": 3,
+        "batchDays": 3
+    },
+    "rules": {
+        "avoidRepetition": true,
+        "tone": "bold, practical, real-life",
+        "emojiUsage": "low"
+    }
+}
