@@ -2,6 +2,7 @@ require("./scheduler/cron");
 const { loadQueue } = require("./queue/contentQueue");
 const { generateBatch } = require("./agent/batchGenerator");
 const userConfig = require("./config/userConfig.json");
+const { publishNext } = require("./instagram/publisher");
 
 async function startAgent() {
     const queue = loadQueue();
@@ -14,5 +15,5 @@ async function startAgent() {
         console.log("✅ Enough content in queue");
     }
 }
-
-startAgent();
+publishNext();
+// startAgent();

@@ -43,7 +43,7 @@ You will also need:
    CLOUDINARY_KEY=your_api_key
    CLOUDINARY_SECRET=your_api_secret
    IG_USER_ID=your_instagram_business_account_id
-   IG_ACCESS_TOKEN=your_instagram_access_token
+   PAGE_ACCESS_TOKEN=your_instagram_access_token
    ```
 
 4. **User Configuration**:
@@ -110,3 +110,62 @@ The agent includes a built-in scheduler (`src/scheduler/cron.js`). By default, i
 - Ensure FFmpeg is accessible in your system's PATH.
 - The Instagram Graph API requires a **Business** or **Creator** account linked to a Facebook Page.
 - Make sure Cloudinary upload presets or permissions allow for video uploads.
+
+# For get love livedd token 
+node scripts/getLongLivedToken.js
+
+## 🔁 Agar kabhi invalid ho gaya to EXACT recovery process
+
+### STEP 1️⃣ Fresh User Login (once)
+
+Facebook Login se:
+
+- instagram_basic
+- instagram_content_publish
+- pages_show_list
+- pages_read_engagement
+- business_management
+
+Isse milega:
+➡️ Short-lived User Token
+
+### STEP 2️⃣ Convert to Long-Lived User Token
+
+run this command in terminal
+node scripts/getLongLivedToken.js
+
+OR 
+
+```
+GET https://graph.facebook.com/v24.0/oauth/access_token
+?grant_type=fb_exchange_token
+&client_id=APP_ID
+&client_secret=APP_SECRET
+&fb_exchange_token=SHORT_USER_TOKEN
+```
+
+➡️ Long-Lived User Token (~60 days)
+
+### STEP 3️⃣ Generate NEW Page Access Token
+
+run this command in terminal
+node scripts/getPageToken.js
+
+OR 
+
+```
+GET https://graph.facebook.com/v24.0/me/accounts
+?access_token=LONG_LIVED_USER_TOKEN
+```
+
+Response:
+
+```json
+{
+  "name": "Silly Dose",
+  "id": "961233233731540",
+  "access_token": "NEW_PAGE_ACCESS_TOKEN"
+}
+```
+
+👉 Bas is token ko .env me paste karo

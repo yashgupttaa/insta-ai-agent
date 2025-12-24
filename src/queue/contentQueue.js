@@ -24,5 +24,6 @@ function addToQueue(content) {
 
 module.exports = {
     loadQueue,
-    addToQueue
+    addToQueue,
+    saveQueue
 };
