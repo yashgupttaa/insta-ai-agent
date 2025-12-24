@@ -1,5 +1,5 @@
 const { loadQueue, saveQueue } = require("../queue/contentQueue");
-const { createContainer, publishContainer } = require("./igClient");
+const { createContainer, publishContainer, waitUntilFinished, tokenHealthCheck } = require("./igClient");
 
 async function publishNext() {
     const queue = loadQueue();
@@ -11,15 +11,20 @@ async function publishNext() {
     }
 
     try {
+        await tokenHealthCheck();
         console.log("🚀 Publishing:", post.id);
 
         const caption =
             post.caption + "\n\n" + post.hashtags.join(" ");
 
         const containerId = await createContainer(
-            post.videoUrl,
+            post.video,
             caption
         );
+
+        await waitUntilFinished(containerId);
+
+        console.log("containerId", containerId);
 
         await publishContainer(containerId);
 
@@ -29,7 +34,10 @@ async function publishNext() {
 
         console.log("✅ Posted successfully");
     } catch (err) {
-        console.error("❌ Publish failed:", err.message);
+        console.error(
+            "❌ Publish failed:",
+            err.response?.data || err.message
+        );
     }
 }
 
