@@ -1,5 +1,5 @@
 {
-    "niche": "Motivation",
+    "niche": "TMKOC Comedy Shows",
     "language": "Hinglish",
     "audience": "Indian youth",
     "posting": {
@@ -8,7 +8,7 @@
     },
     "rules": {
         "avoidRepetition": true,
-        "tone": "bold, practical, real-life",
+        "tone": "light comedy, relatable, TMKOC-style humor",
         "emojiUsage": "low"
     }
 }

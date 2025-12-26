@@ -12,7 +12,16 @@ async function generateCaption(prompt) {
         temperature: 0.8
     });
 
-    return res.choices[0].message.content;
+    let content = res.choices[0].message.content.trim();
+    
+    // Remove markdown code blocks if present
+    if (content.startsWith("```json")) {
+        content = content.replace(/^```json\s*/, "").replace(/\s*```$/, "");
+    } else if (content.startsWith("```")) {
+        content = content.replace(/^```\s*/, "").replace(/\s*```$/, "");
+    }
+
+    return content;
 }
 
 module.exports = { generateCaption };
