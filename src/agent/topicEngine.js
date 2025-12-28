@@ -7,18 +7,18 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 const MEMORY_PATH = path.join(__dirname, "../../data/topicMemory.json");
 
 async function loadMemory() {
-    if (!fs.existsSync(MEMORY_PATH)) return [];
-    return JSON.parse(fs.readFileSync(MEMORY_PATH));
+  if (!fs.existsSync(MEMORY_PATH)) return [];
+  return JSON.parse(fs.readFileSync(MEMORY_PATH));
 }
 
 async function saveMemory(memory) {
-    fs.writeFileSync(MEMORY_PATH, JSON.stringify(memory, null, 2));
+  fs.writeFileSync(MEMORY_PATH, JSON.stringify(memory, null, 2));
 }
 
-async function  generateTopics(niche, count = 10) {
-    const memory = await loadMemory();
+async function generateTopics(niche, count = 12) {
+  const memory = await loadMemory();
 
-    const prompt = `
+  const prompt = `
 You are a creative writer for Indian comedy reels inspired by TMKOC.
 
 Generate ${count} UNIQUE comedy situations (not generic topics).
@@ -57,10 +57,8 @@ Characters:
     messages: [{ role: "user", content: prompt }]
   });
 
-  console.log("res",res.choices[0]);
-
   let content = res.choices[0].message.content.trim();
-  
+
   // Remove markdown code blocks if present
   if (content.startsWith("```json")) {
     content = content.replace(/^```json\s*/, "").replace(/\s*```$/, "");
@@ -68,16 +66,16 @@ Characters:
     content = content.replace(/^```\s*/, "").replace(/\s*```$/, "");
   }
 
-    const rawTopics = JSON.parse(content);
-    const baseTopics = rawTopics.map(item => item.situation);
+  const rawTopics = JSON.parse(content);
+  const baseTopics = rawTopics.map(item => item.situation);
 
-    const freshTopics = baseTopics
-        .filter(t => !memory.includes(t))
-        .slice(0, count);
+  const freshTopics = baseTopics
+    .filter(t => !memory.includes(t))
+    .slice(0, count);
 
-    saveMemory([...memory, ...freshTopics]);
+  saveMemory([...memory, ...freshTopics]);
 
-    return freshTopics.map(t => `${niche} - ${t}`);
+  return freshTopics.map(t => `${niche} - ${t}`);
 }
 
 module.exports = { generateTopics };

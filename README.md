@@ -162,8 +162,8 @@ Response:
 
 ```json
 {
-  "name": "Silly Dose",
-  "id": "961233233731540",
+  "name": "SillyXXXXX",
+  "id": "9612XXXXXXXXXXXXX",
   "access_token": "NEW_PAGE_ACCESS_TOKEN"
 }
 ```

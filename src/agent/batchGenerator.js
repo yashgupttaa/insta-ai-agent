@@ -7,9 +7,7 @@ const { uploadVideo } = require("../storage/uploader");
 const userConfig = require("../config/userConfig.json");
 
 async function generateBatch() {
-    const topics = await generateTopics(userConfig.niche, 12);
-
-    console.log("topics", topics);
+    const topics = await generateTopics(userConfig.niche, 1);
 
     for (let topic of topics) {
         const prompt = buildPrompt({
@@ -27,22 +25,20 @@ async function generateBatch() {
             console.error("Failed to parse caption JSON", e);
             continue;
         }
-        
-        console.log("Generated caption for topic:", topic);
 
-        // const videoPath = await createReel({
-        //     topic,
-        //     caption: parsedOutput.caption.english,
-        //     id: `reel_${Date.now()}`
-        // });
+        const videoPath = await createReel({
+            topic,
+            speech: parsedOutput.reelIdea.hindi,
+            id: `reel_${Date.now()}`
+        });
 
-        // const videoUrl = await uploadVideo(videoPath);
+        const videoUrl = await uploadVideo(videoPath);
 
         addToQueue({
             id: `reel_${Date.now()}`,
             caption: parsedOutput.caption.english,
             hashtags: parsedOutput.hashtags,
-            video: "videoUrl",
+            video: videoUrl,
             reelIdea: parsedOutput.reelIdea
         });
     }

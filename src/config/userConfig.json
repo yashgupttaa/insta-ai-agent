@@ -3,8 +3,8 @@
     "language": "Hinglish",
     "audience": "Indian youth",
     "posting": {
-        "postsPerDay": 3,
-        "batchDays": 3
+        "postsPerDay": 4,
+        "batchDays": 2
     },
     "rules": {
         "avoidRepetition": true,

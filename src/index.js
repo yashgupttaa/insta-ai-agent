@@ -8,12 +8,18 @@ async function startAgent() {
     const queue = loadQueue();
     const required = userConfig.posting.postsPerDay * userConfig.posting.batchDays;
 
-    if (queue.length < required) {
+    const pendingCount = queue.filter(
+        post => post.status === "PENDING"
+    ).length;
+
+    console.log("📦 Pending posts:", pendingCount);
+
+    if (pendingCount < required) {
         console.log("🧠 Generating new batch...");
         await generateBatch();
     } else {
         console.log("✅ Enough content in queue");
     }
 }
-publishNext();
-// startAgent();
+// publishNext();
+startAgent();

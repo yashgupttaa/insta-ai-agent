@@ -1,16 +1,15 @@
 const { generateImage } = require("./imageGenerator");
 const { buildReel } = require("./reelBuilder");
-const { pickMusic } = require("./musicPicker");
+const { generateTts } = require("./ttsGenerator");
 
-async function createReel({ topic, caption, id }) {
+async function createReel({ topic, speech, id }) {
     const image = await generateImage(topic, id);
-    const music = pickMusic();
+    const audio = await generateTts(speech, id);
 
     const videoPath = await buildReel({
         image,
-        caption,
         id,
-        music
+        audio
     });
 
     return videoPath;
