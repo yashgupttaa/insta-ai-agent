@@ -21,5 +21,14 @@ async function startAgent() {
         console.log("✅ Enough content in queue");
     }
 }
+
+// For node cron pls uncomment below lines these for local testing
 // publishNext();
-startAgent();
+// startAgent();
+
+// For local testing pls comment below lines because these for render cron trigger
+(async () => {
+    console.log("⏰ Render Cron Triggered");
+    await startAgent();   // agar queue kam ho
+    await publishNext();     // ek post publish
+})();
