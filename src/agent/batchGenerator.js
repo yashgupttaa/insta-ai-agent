@@ -7,7 +7,7 @@ const { uploadVideo } = require("../storage/uploader");
 const userConfig = require("../config/userConfig.json");
 
 async function generateBatch() {
-    const topics = await generateTopics(userConfig.niche, 1);
+    const topics = await generateTopics(userConfig.niche, 12);
 
     for (let topic of topics) {
         const prompt = buildPrompt({
