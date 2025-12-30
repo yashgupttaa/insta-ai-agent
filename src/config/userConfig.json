@@ -4,7 +4,7 @@
     "audience": "Indian youth",
     "posting": {
         "postsPerDay": 4,
-        "batchDays": 2
+        "batchDays": 1
     },
     "rules": {
         "avoidRepetition": true,

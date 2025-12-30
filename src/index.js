@@ -1,4 +1,5 @@
-require("./scheduler/cron");
+// require("./scheduler/cron");
+require("dotenv").config();
 const { loadQueue } = require("./queue/contentQueue");
 const { generateBatch } = require("./agent/batchGenerator");
 const userConfig = require("./config/userConfig.json");
@@ -24,7 +25,7 @@ async function startAgent() {
 
 // For node cron pls uncomment below lines these for local testing
 // publishNext();
-// startAgent();
+// startAgent()
 
 // For local testing pls comment below lines because these for render cron trigger
 (async () => {

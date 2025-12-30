@@ -15,7 +15,7 @@ async function saveMemory(memory) {
   fs.writeFileSync(MEMORY_PATH, JSON.stringify(memory, null, 2));
 }
 
-async function generateTopics(niche, count = 12) {
+async function generateTopics(niche, count = 4) {
   const memory = await loadMemory();
 
   const prompt = `
