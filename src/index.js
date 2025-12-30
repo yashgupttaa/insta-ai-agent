@@ -7,6 +7,7 @@ const { publishNext } = require("./instagram/publisher");
 
 async function startAgent() {
     const queue = loadQueue();
+    console.log("total queue", queue.length);
     const required = userConfig.posting.postsPerDay * userConfig.posting.batchDays;
 
     const pendingCount = queue.filter(
